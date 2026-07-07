@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karthikeyan Shanmugam · The Runner's Portfolio</title>
+<meta name="description" content="First half in 3:15. 10K in 1:16. Chasing sub-3:30 marathon. — Karthikeyan Shanmugam, Bengaluru.">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Karthikeyan Shanmugam · The Runner's Portfolio">
+<meta property="og:description" content="First half in 3:15. 10K in 1:16. Chasing sub-3:30 marathon.">
+<meta property="og:image" content="og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Karthikeyan Shanmugam · The Runner's Portfolio">
+<meta name="twitter:description" content="First half in 3:15. 10K in 1:16. Chasing sub-3:30 marathon.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #f7f5f0;
+    --bg-raise: #fffefb;
+    --primary: #3a5a8c;
+    --primary-dark: #263f5e;
+    --accent: #c5d44a;
+    --ink: #1a1f2e;
+    --ink-soft: #7c7a72;
+    --sky-warm: #f4d4b0;
+    --blossom: #f8b8c5;
+    --line: rgba(26,31,46,0.12);
+    --serif: 'DM Serif Display', serif;
+    --sans: 'Outfit', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --radius: 14px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;}
+  a{color:var(--primary);}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;align-items:center;gap:6px;
+    margin:0 0 14px;
+  }
+  section{padding:64px 0;}
+  section h2{font-size:2rem;margin-bottom:8px;color:var(--primary-dark);}
+  .section-sub{color:var(--ink-soft);margin:0 0 32px;max-width:56ch;}
+
+  svg.icon{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+
+  /* ---------- Fade-in ---------- */
+  .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:56px 0 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:48px;
+    align-items:start;
+    position:relative;
+    z-index:1;
+  }
+  .hero-photo-frame{
+    aspect-ratio:1/1;
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--sky-warm);
+    border:1px solid var(--line);
+    position:relative;
+  }
+  .hero-photo-frame img{width:100%;height:100%;object-fit:cover;object-position:63% 8%;transform:scale(1.24);transform-origin:63% 8%;}
+  .hero-photo-frame.img-fallback{
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--sky-warm),var(--accent));
+  }
+  .hero-photo-frame.img-fallback img{display:none;}
+  .hero-photo-frame.img-fallback::after{
+    content:"KS";
+    font-family:var(--serif);
+    font-size:4rem;
+    color:var(--primary-dark);
+  }
+  .bib-tag{
+    position:absolute;bottom:14px;left:14px;
+    background:rgba(247,245,240,0.92);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:4px 10px;
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--ink);
+  }
+  .hero h1{font-size:clamp(2.2rem,4.5vw,3.4rem);margin-bottom:10px;}
+  .hero .bio{max-width:58ch;color:var(--ink);opacity:.85;margin:0 0 28px;}
+  .pb-strip{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+  .pb-chip{
+    background:var(--bg-raise);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 16px;
+    min-width:110px;
+  }
+  .pb-chip .d{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+  .pb-chip .t{font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--primary-dark);}
+  .share-quote{
+    margin:0;
+    border-left:3px solid var(--accent);
+    padding:6px 0 6px 18px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--primary-dark);
+    max-width:46ch;
+  }
+
+  /* ---------- PB Ladder ---------- */
+  .ladder-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);}
+  .rung{
+    display:grid;
+    grid-template-columns:110px 1fr auto;
+    align-items:center;
+    gap:20px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    cursor:default;
+  }
+  .rung:focus-visible{outline:2px solid var(--primary);outline-offset:4px;}
+  .rung .dist{font-family:var(--serif);font-size:1.5rem;color:var(--primary-dark);}
+  .rung .meta{color:var(--ink-soft);font-size:.9rem;}
+  .rung .meta .race-name{color:var(--ink);}
+  .rung .time-block{text-align:right;}
+  .rung .time{font-family:var(--mono);font-size:1.9rem;font-weight:700;letter-spacing:-.01em;}
+  .rung .training-pb{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);margin-top:2px;}
+  .rung.untrained .time{color:var(--ink-soft);}
+  .rung.next-up{cursor:pointer;}
+  .rung.next-up .time-block{display:flex;align-items:center;gap:10px;justify-content:flex-end;}
+  .rung.next-up .time{color:var(--ink-soft);font-style:italic;font-size:1.2rem;}
+  .rung.next-up .target{
+    font-family:var(--mono);font-size:1.1rem;color:var(--primary);
+  }
+  .pulse-arrow{
+    width:22px;height:22px;color:var(--primary);
+    animation:pulse-x 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-x{
+    0%,100%{transform:translateX(0);opacity:.6;}
+    50%{transform:translateX(6px);opacity:1;}
+  }
+  .rung-tooltip{
+    position:absolute;
+    right:0;top:100%;
+    margin-top:6px;
+    background:var(--ink);
+    color:var(--bg);
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:.8rem;
+    max-width:280px;
+    z-index:5;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-4px);
+    transition:opacity .18s ease, transform .18s ease;
+    pointer-events:none;
+  }
+  .rung:hover .rung-tooltip,
+  .rung:focus-visible .rung-tooltip{
+    opacity:1;visibility:visible;transform:translateY(0);
+  }
+  .rung-tooltip strong{color:var(--accent);}
+
+  /* ---------- Snapshot ---------- */
+  .snapshot-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .stat{background:var(--bg-raise);padding:24px;}
+  .stat .num{font-family:var(--mono);font-size:1.7rem;font-weight:700;color:var(--primary-dark);}
+  .stat .label{font-size:.82rem;color:var(--ink-soft);margin-top:4px;}
+
+  /* ---------- Weekly mileage strip ---------- */
+  .weekly-strip{
+    margin-top:20px;
+    background:var(--bg-raise);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 24px 12px;
+  }
+  .weekly-strip-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    flex-wrap:wrap;gap:8px;
+    margin-bottom:12px;
+  }
+  .weekly-strip-title{font-weight:600;font-size:.95rem;color:var(--primary-dark);}
+  .sync-stamp{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);}
+  .weekly-strip svg{width:100%;height:auto;display:block;}
+  .weekly-strip .bar{fill:var(--primary);opacity:.85;}
+  .weekly-strip .bar.peak{fill:var(--accent);opacity:1;}
+  .weekly-strip .bar-label{font-family:var(--mono);font-size:11px;fill:var(--ink);}
+  .weekly-strip .week-label{font-family:var(--mono);font-size:10px;fill:var(--ink-soft);}
+
+  /* ---------- History controls ---------- */
+  .controls{
+    display:flex;flex-wrap:wrap;gap:16px 28px;
+    align-items:center;
+    margin-bottom:28px;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--line);
+  }
+  .chip-group{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:var(--sans);
+    font-size:.85rem;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ink);
+    border-radius:999px;
+    padding:6px 14px;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .chip[aria-pressed="true"]{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:#fff;
+  }
+  .chip:hover:not([aria-pressed="true"]){border-color:var(--primary);}
+  .sort-group{display:flex;gap:2px;background:var(--bg-raise);border:1px solid var(--line);border-radius:10px;padding:3px;margin-left:auto;}
+  .sort-btn{
+    font-family:var(--sans);
+    font-size:.82rem;
+    border:none;background:transparent;color:var(--ink-soft);
+    padding:6px 12px;border-radius:8px;cursor:pointer;
+    display:flex;align-items:center;gap:4px;
+  }
+  .sort-btn[aria-pressed="true"]{background:var(--primary-dark);color:#fff;}
+  .sort-btn .dir{font-size:.7rem;}
+
+  /* ---------- Race list ---------- */
+  .race-list{list-style:none;margin:0;padding:0;}
+  .race-item{border-bottom:1px solid var(--line);}
+  .race-row{
+    width:100%;
+    display:grid;
+    grid-template-columns:100px 1fr 90px 110px 20px;
+    align-items:center;
+    gap:16px;
+    padding:18px 4px;
+    background:none;border:none;
+    font-family:var(--sans);color:var(--ink);
+    text-align:left;cursor:pointer;
+  }
+  .race-row .date{font-family:var(--mono);font-size:.82rem;color:var(--ink-soft);}
+  .race-row .name{font-weight:500;}
+  .race-row .name .pb-flag{
+    display:inline-block;margin-left:8px;font-size:.68rem;font-family:var(--mono);
+    background:var(--accent);color:var(--ink);padding:1px 7px;border-radius:5px;vertical-align:middle;
+  }
+  .race-row .name .pending-flag{
+    display:inline-block;margin-left:8px;font-size:.68rem;font-family:var(--mono);
+    border:1px dashed var(--ink-soft);color:var(--ink-soft);padding:1px 7px;border-radius:5px;vertical-align:middle;
+  }
+  .race-row .dist-badge{
+    font-family:var(--mono);font-size:.72rem;text-align:center;
+    border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--primary-dark);
+    justify-self:start;
+  }
+  .race-row .time{font-family:var(--mono);font-weight:600;text-align:right;}
+  .race-row .time.na{color:var(--ink-soft);font-weight:400;}
+  .race-row .chev{width:16px;height:16px;color:var(--ink-soft);transition:transform .2s ease;}
+  .race-item[data-expanded="true"] .chev{transform:rotate(90deg);}
+
+  .race-detail{
+    max-height:0;overflow:hidden;
+    transition:max-height .32s ease, padding .32s ease;
+    padding:0 4px;
+  }
+  .race-item[data-expanded="true"] .race-detail{
+    max-height:260px;padding:0 4px 22px;
+  }
+  .race-detail-inner{
+    background:var(--bg-raise);border:1px solid var(--line);border-radius:10px;padding:18px 20px;
+  }
+  .race-detail p.desc{margin:0 0 12px;color:var(--ink);}
+  .race-detail dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;font-size:.85rem;}
+  .race-detail dt{font-family:var(--mono);color:var(--ink-soft);}
+  .race-detail dd{margin:0;}
+
+  /* ---------- Trek accent ---------- */
+  .trek{padding:0;}
+  .trek-frame{
+    position:relative;
+    height:clamp(320px,55vw,540px);
+    overflow:hidden;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--primary-dark);
+  }
+  .trek-frame img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+  .trek-frame.img-fallback{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));}
+  .trek-frame.img-fallback img{display:none;}
+  .trek-frame.img-fallback::after{content:"trail miles";font-family:var(--serif);font-style:italic;color:var(--bg);font-size:1.6rem;}
+  .trek-caption{
+    position:absolute;left:0;right:0;bottom:0;
+    margin:0;
+    padding:56px 24px 22px;
+    background:linear-gradient(to top, rgba(20,26,40,.62), rgba(20,26,40,0));
+    color:#fff;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(1.05rem,2vw,1.35rem);
+  }
+  .trek-caption .sub{
+    display:block;
+    margin-top:4px;
+    font-family:var(--mono);
+    font-style:normal;
+    font-size:.72rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.75);
+  }
+
+  /* ---------- Highlights ---------- */
+  .highlight-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);}
+  .highlight-item{
+    display:grid;grid-template-columns:110px 1fr auto;gap:18px;align-items:baseline;
+    padding:18px 0;border-bottom:1px solid var(--line);
+  }
+  .highlight-item .when{font-family:var(--mono);font-size:.8rem;color:var(--ink-soft);}
+  .highlight-item .label{font-weight:600;}
+  .highlight-item .race-sub{color:var(--ink-soft);font-size:.85rem;display:block;margin-top:2px;}
+  .highlight-item .time{font-family:var(--mono);font-weight:700;color:var(--primary-dark);text-align:right;}
+
+  /* ---------- Training for ---------- */
+  .training-for{
+    background:var(--primary-dark);
+    color:var(--bg);
+    border-radius:var(--radius);
+    padding:44px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    flex-wrap:wrap;
+  }
+  .training-for .eyebrow{color:var(--sky-warm);}
+  .training-for h2{color:#fff;}
+  .training-for p{color:rgba(255,255,255,.78);max-width:52ch;margin:10px 0 0;}
+  .training-for .focus-quote{
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--sky-warm);
+    font-size:1.05rem;
+  }
+  .training-for .target{
+    display:flex;align-items:center;gap:14px;
+    font-family:var(--mono);font-size:2.1rem;font-weight:700;color:var(--accent);
+  }
+  .training-for .pulse-arrow{color:var(--accent);width:30px;height:30px;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:48px 0 64px;
+    text-align:center;
+    color:var(--ink-soft);
+  }
+  footer .share-quote{margin:0 auto 18px;text-align:left;}
+  footer .hint{font-size:.8rem;font-family:var(--mono);}
+  footer .hint a{color:var(--primary);}
+
+  /* ---------- Divider ---------- */
+  .divider{display:block;width:100%;height:40px;color:var(--line);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:768px){
+    section{padding:44px 0;}
+    .hero .wrap{grid-template-columns:1fr;gap:28px;}
+    .hero-photo-frame{max-width:280px;margin:0 auto;}
+    .rung{grid-template-columns:70px 1fr;grid-template-areas:"d t" "m m";}
+    .rung .dist{grid-area:d;}
+    .rung .time-block{grid-area:t;justify-self:end;}
+    .rung .meta{grid-area:m;}
+    .snapshot-grid{grid-template-columns:repeat(2,1fr);}
+    .sort-group{margin-left:0;}
+    .race-row{grid-template-columns:1fr 60px 16px;grid-template-areas:"name time chev" "date date date" "dist dist dist";row-gap:4px;}
+    .race-row .date{grid-area:date;}
+    .race-row .name{grid-area:name;}
+    .race-row .dist-badge{grid-area:dist;justify-self:start;}
+    .race-row .time{grid-area:time;}
+    .race-row .chev{grid-area:chev;}
+    .highlight-item{grid-template-columns:1fr auto;grid-template-areas:"label time" "when when";row-gap:4px;}
+    .highlight-item .when{grid-area:when;}
+    .highlight-item .label{grid-area:label;}
+    .highlight-item .time{grid-area:time;}
+    .training-for{padding:32px 24px;}
+  }
+
+  /* ---------- Print ---------- */
+  @media print{
+    .hero-photo-frame, .trek, .highlights, .training-for, .controls, .snapshot-grid, .weekly-strip, footer .hint{display:none !important;}
+    .chip-group, .sort-group{display:none !important;}
+    .race-detail{display:none !important;}
+    section{padding:14px 0;}
+    body{background:#fff;}
+    .rung-tooltip{display:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-photo-frame" id="heroPhoto">
+      <img src="hero.jpg" alt="Karthikeyan Shanmugam mid-stride at the Bengaluru 10K Challenge 2025, wearing bib C/10K #17737" onerror="this.parentElement.classList.add('img-fallback')">
+      <span class="bib-tag">BIB #17737 · BLR 10K '25</span>
+    </div>
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.4-7-12a7 7 0 0 1 14 0c0 5.6-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Bengaluru, Karnataka
+      </p>
+      <h1>Karthikeyan Shanmugam</h1>
+      <p class="bio" id="bioText"></p>
+      <div class="pb-strip" id="pbStrip"></div>
+      <blockquote class="share-quote">&ldquo;First half in 3:15. 10K in 1:16. Chasing sub-3:30 marathon.&rdquo;</blockquote>
+    </div>
+  </div>
+</header>
+
+<section class="ladder">
+  <div class="wrap">
+    <h2>The Ladder</h2>
+    <p class="section-sub">Best time raced at each distance — race PB up top, training-run PB tucked underneath.</p>
+    <ul class="ladder-list" id="ladderList"></ul>
+  </div>
+</section>
+
+<section class="snapshot">
+  <div class="wrap">
+    <h2>Year Snapshot</h2>
+    <p class="section-sub">Lifetime and year-to-date, pulled from the training log.</p>
+    <div class="snapshot-grid" id="snapshotGrid"></div>
+    <div class="weekly-strip fade-in">
+      <div class="weekly-strip-head">
+        <span class="weekly-strip-title">Last 8 weeks of running</span>
+        <span class="sync-stamp" id="syncStamp"></span>
+      </div>
+      <div id="weeklyChart"></div>
+    </div>
+  </div>
+</section>
+
+<section class="history">
+  <div class="wrap">
+    <h2>Race History</h2>
+    <p class="section-sub">Every start line so far. Filter, sort, tap a row for the full story.</p>
+    <div class="controls">
+      <div class="chip-group" id="yearChips" role="group" aria-label="Filter by year"></div>
+      <div class="chip-group" id="distChips" role="group" aria-label="Filter by distance"></div>
+      <div class="sort-group" id="sortGroup" role="group" aria-label="Sort races"></div>
+    </div>
+    <ul class="race-list" id="raceList"></ul>
+  </div>
+</section>
+
+<section class="trek">
+  <div class="trek-frame" id="trekPhoto">
+    <img src="trek.jpg" alt="Karthikeyan at a Himalayan lake temple with prayer flags and snow-capped peaks, on a trek between race blocks" onerror="this.parentElement.classList.add('img-fallback')">
+    <p class="trek-caption">Between race blocks — miles wherever the ground is.<span class="sub">training in the wild · Himalayan trek</span></p>
+  </div>
+</section>
+
+<section class="highlights">
+  <div class="wrap">
+    <h2>Highlights</h2>
+    <p class="section-sub">Moments worth marking on the way to the marathon.</p>
+    <ul class="highlight-list" id="highlightList"></ul>
+  </div>
+</section>
+
+<section class="training-for-wrap">
+  <div class="wrap">
+    <div class="training-for" id="trainingFor">
+      <div>
+        <p class="eyebrow">Currently training for</p>
+        <h2 id="trainingRaceName"></h2>
+        <p id="trainingContext"></p>
+        <p class="focus-quote" id="focusQuote"></p>
+      </div>
+      <div class="target">
+        <span id="trainingTarget"></span>
+        <svg class="icon pulse-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <blockquote class="share-quote">&ldquo;First half in 3:15. 10K in 1:16. Chasing sub-3:30 marathon.&rdquo;</blockquote>
+    <p class="hint">Built from a JSON file and vanilla JS — no backend. Fork the idea, swap in your own splits.</p>
+  </div>
+</footer>
+
+<script>
+const DATA = {
+  "runner": {
+    "name": "Karthikeyan Shanmugam",
+    "city": "Bengaluru, Karnataka, India",
+    "bio": "Bengaluru runner training for first full marathon. 10K race PB 01:16:31, half PB 3:15:59, 5K training PB 36:04.",
+    "age": 30
+  },
+  "personal_bests": {
+    "5K":      { "time": null },
+    "10K":     { "time": "01:16:31", "race": "TCS World 10K Bengaluru",   "date": "2026-04-26" },
+    "Half":    { "time": "3:15:59",  "race": "Wipro Bengaluru Marathon (Half)", "date": "2023-10-07" },
+    "Marathon": { "time": null, "never_raced": true }
+  },
+  "all_time_bests": {
+    "5K":   { "time": "36:04" },
+    "10K":  { "time": "01:15:16" },
+    "Half": { "time": "3:36:51" }
+  },
+  "races": [
+    { "date": "2026-04-26", "name": "TCS World 10K Bengaluru",     "distance": "10K",      "time": "01:16:31", "is_pb": true, "placement_overall": 12424, "placement_of": 15902, "course_type": "road", "source": "STS" },
+    { "date": "2025-07-06", "name": "Bengaluru 10K Challenge",     "distance": "10K",      "time": "01:31:44", "bib": 17737, "course_type": "road", "source": "Strava" },
+    { "date": "2025-04-26", "name": "TCS World 10K Bengaluru",     "distance": "10K",      "time": "01:24:19", "placement_overall": 12387, "placement_of": 16675, "course_type": "road", "source": "STS" },
+    { "date": "2024-07-07", "name": "Bengaluru 10K Challenge",     "distance": "10K",      "time": "01:25:44", "course_type": "road", "source": "Athlinks" },
+    { "date": "2024-04-27", "name": "TCS World 10K Bengaluru",     "distance": "10K",      "time": "01:20:01", "course_type": "road", "source": "Athlinks" },
+    { "date": "2023-10-07", "name": "Wipro Bengaluru Marathon (Half)", "distance": "Half", "time": "3:15:59",  "is_pb": true, "course_type": "road", "source": "Athlinks" },
+    { "date": "2023-07-02", "name": "Bengaluru 10K Challenge",     "distance": "10K",      "time": "01:23:22", "course_type": "road", "source": "Athlinks" },
+    { "date": "2023-05-21", "name": "TCS World 10K Bengaluru",     "distance": "10K",      "time": "01:25:39", "course_type": "road", "source": "Athlinks" }
+  ],
+  "highlights": [
+    { "label": "First half marathon",            "when": "Oct 2023", "race": "Wipro Bengaluru",          "time": "3:15:59" },
+    { "label": "First sub-1:20 10K race",         "when": "Apr 2024", "race": "TCS World 10K Bengaluru",  "time": "01:20:01" },
+    { "label": "Current 10K race PR",             "when": "Apr 2026", "race": "TCS World 10K Bengaluru",  "time": "01:16:31" },
+    { "label": "10K all-time best (training)",   "when": "Jun 2026", "race": "Evening Run, Bengaluru",    "time": "01:15:16" }
+  ],
+  "currently_training_for": {
+    "race_name": "First full marathon",
+    "target_time": "sub-3:30",
+    "context": "Half PB 3:15:59 + 1:15 training 10K suggests debut sub-3:30 is realistic",
+    "focus_quote": "Build strength, lift heavier and run faster"
+  },
+  "career_stats": {
+    "total_activities": 325,
+    "total_distance_km": 1128.7,
+    "total_time_hours": 155.92,
+    "total_elev_gain_m": 3211,
+    "year_2026_activities": 128,
+    "year_2026_distance_km": 416.4,
+    "last_synced": "2026-07-07"
+  },
+  "weekly_km": [
+    { "week_start": "2026-05-11", "km": 2.6 },
+    { "week_start": "2026-05-18", "km": 0.0 },
+    { "week_start": "2026-05-25", "km": 4.2 },
+    { "week_start": "2026-06-01", "km": 17.9 },
+    { "week_start": "2026-06-08", "km": 11.3 },
+    { "week_start": "2026-06-15", "km": 5.4 },
+    { "week_start": "2026-06-22", "km": 20.2 },
+    { "week_start": "2026-06-29", "km": 2.1 }
+  ]
+};
+
+const DISTANCE_ORDER = ["5K", "10K", "Half", "Marathon"];
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function parseTimeToSeconds(t){
+  if(!t) return null;
+  const parts = t.split(':').map(Number);
+  let sec = 0;
+  for(const p of parts) sec = sec*60 + p;
+  return sec;
+}
+
+function formatDelta(sec){
+  const sign = sec < 0 ? '-' : '+';
+  sec = Math.abs(Math.round(sec));
+  const m = Math.floor(sec/60);
+  const s = sec%60;
+  return `${sign}${m}:${String(s).padStart(2,'0')}`;
+}
+
+function formatDate(dateStr){
+  const [y,m,d] = dateStr.split('-').map(Number);
+  return `${d} ${MONTHS[m-1]} ${y}`;
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ---------------- Hero ---------------- */
+document.getElementById('bioText').textContent = DATA.runner.bio;
+
+function renderPbStrip(){
+  const el = document.getElementById('pbStrip');
+  el.innerHTML = DISTANCE_ORDER.map(d => {
+    const pb = DATA.personal_bests[d];
+    const t = pb.time || (d === 'Marathon' ? 'TBD' : '—');
+    return `<div class="pb-chip"><div class="d">${d}</div><div class="t">${t}</div></div>`;
+  }).join('');
+}
+renderPbStrip();
+
+/* ---------------- PB Ladder ---------------- */
+function computeDelta(distance){
+  const pb = DATA.personal_bests[distance];
+  if(!pb || !pb.time) return null;
+  const pbRace = DATA.races.find(r => r.distance === distance && r.is_pb);
+  if(!pbRace) return null;
+  const priors = DATA.races.filter(r => r.distance === distance && r.time && new Date(r.date) < new Date(pbRace.date));
+  if(!priors.length) return { first: true };
+  const priorBest = priors.reduce((best, r) => parseTimeToSeconds(r.time) < parseTimeToSeconds(best.time) ? r : best);
+  const deltaSec = parseTimeToSeconds(pb.time) - parseTimeToSeconds(priorBest.time);
+  return { deltaSec, priorBest };
+}
+
+function renderLadder(){
+  const el = document.getElementById('ladderList');
+  el.innerHTML = DISTANCE_ORDER.map(distance => {
+    const pb = DATA.personal_bests[distance];
+    const atb = DATA.all_time_bests[distance];
+
+    if(distance === 'Marathon' && pb.never_raced){
+      return `
+        <li class="rung next-up fade-in" tabindex="0" onclick="document.getElementById('trainingFor').scrollIntoView({behavior:'smooth', block:'center'})">
+          <span class="dist">Marathon</span>
+          <span class="meta">Not yet raced — <span class="race-name">the next start line</span></span>
+          <span class="time-block">
+            <span class="target">${DATA.currently_training_for.target_time}</span>
+            <svg class="icon pulse-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </span>
+        </li>`;
+    }
+
+    if(!pb.time){
+      const training = atb && atb.time ? atb.time : '—';
+      return `
+        <li class="rung untrained fade-in" tabindex="0">
+          <span class="dist">${distance}</span>
+          <span class="meta">No race yet — training pace only</span>
+          <span class="time-block">
+            <span class="time">${training}</span>
+            <div class="training-pb">training PB, unraced</div>
+          </span>
+        </li>`;
+    }
+
+    const delta = computeDelta(distance);
+    let tooltip = `<strong>${escapeHtml(pb.race)}</strong> · ${formatDate(pb.date)}`;
+    if(delta && delta.first){
+      tooltip += `<br>First PB at this distance.`;
+    } else if(delta){
+      tooltip += `<br>${formatDelta(delta.deltaSec)} from ${new Date(delta.priorBest.date).getFullYear()} race (${escapeHtml(delta.priorBest.name)})`;
+    }
+
+    const trainingNote = (atb && atb.time && atb.time !== pb.time)
+      ? `<div class="training-pb">training PB: ${atb.time}</div>` : '';
+
+    return `
+      <li class="rung fade-in" tabindex="0">
+        <span class="dist">${distance}</span>
+        <span class="meta"><span class="race-name">${escapeHtml(pb.race)}</span> · ${formatDate(pb.date)}</span>
+        <span class="time-block">
+          <span class="time">${pb.time}</span>
+          ${trainingNote}
+        </span>
+        <div class="rung-tooltip">${tooltip}</div>
+      </li>`;
+  }).join('');
+}
+renderLadder();
+
+/* ---------------- Snapshot ---------------- */
+function renderSnapshot(){
+  const cs = DATA.career_stats;
+  const stats = [
+    { num: cs.total_activities.toLocaleString(), label: 'Lifetime activities' },
+    { num: `${cs.total_distance_km.toLocaleString()} km`, label: 'Lifetime distance' },
+    { num: `${cs.total_time_hours.toFixed(1)} hrs`, label: 'Lifetime time' },
+    { num: `${cs.total_elev_gain_m.toLocaleString()} m`, label: 'Lifetime elevation' },
+    { num: cs.year_2026_activities.toLocaleString(), label: '2026 activities' },
+    { num: `${cs.year_2026_distance_km.toLocaleString()} km`, label: '2026 distance' },
+  ];
+  document.getElementById('snapshotGrid').innerHTML = stats.map(s =>
+    `<div class="stat fade-in"><div class="num">${s.num}</div><div class="label">${s.label}</div></div>`
+  ).join('');
+}
+renderSnapshot();
+
+function renderWeeklyStrip(){
+  const weeks = DATA.weekly_km;
+  const maxKm = Math.max(...weeks.map(w => w.km), 1);
+  const W = 720, H = 150, pad = 6, labelBand = 34;
+  const slot = W / weeks.length;
+  const barW = slot * 0.56;
+  const chartH = H - labelBand;
+
+  const bars = weeks.map((w, i) => {
+    const h = Math.max((w.km / maxKm) * (chartH - 24), w.km > 0 ? 4 : 2);
+    const x = i * slot + (slot - barW) / 2;
+    const y = chartH - h;
+    const peak = w.km === maxKm ? ' peak' : '';
+    const [, m, d] = w.week_start.split('-').map(Number);
+    return `
+      <rect class="bar${peak}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="4"/>
+      <text class="bar-label" x="${(i * slot + slot / 2).toFixed(1)}" y="${(y - 7).toFixed(1)}" text-anchor="middle">${w.km}</text>
+      <text class="week-label" x="${(i * slot + slot / 2).toFixed(1)}" y="${chartH + 18}" text-anchor="middle">${d} ${MONTHS[m - 1]}</text>`;
+  }).join('');
+
+  document.getElementById('weeklyChart').innerHTML =
+    `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weekly running distance for the last 8 weeks, in kilometres">
+      <line x1="0" y1="${chartH}" x2="${W}" y2="${chartH}" stroke="var(--line)" stroke-width="1"/>
+      ${bars}
+    </svg>`;
+
+  const synced = DATA.career_stats.last_synced;
+  if(synced){
+    document.getElementById('syncStamp').textContent = `synced from Strava · ${formatDate(synced)}`;
+  }
+}
+renderWeeklyStrip();
+
+/* ---------------- Race History ---------------- */
+const state = {
+  year: 'All',
+  distance: 'All',
+  sort: { mode: 'recent', dir: 'desc' },
+  expandedId: null
+};
+const DEFAULT_DIR = { recent: 'desc', oldest: 'asc', fastest: 'asc' };
+
+function raceId(r){ return `${r.date}__${r.name}`.replace(/[^a-zA-Z0-9]/g,'-'); }
+
+function renderChips(){
+  const years = ['All', ...new Set(DATA.races.map(r => r.date.slice(0,4)))].sort((a,b) => a==='All' ? -1 : b==='All' ? 1 : b-a);
+  const distances = ['All', ...new Set(DATA.races.map(r => r.distance))];
+
+  document.getElementById('yearChips').innerHTML = years.map(y =>
+    `<button class="chip" data-year="${y}" aria-pressed="${state.year===y}">${y}</button>`
+  ).join('');
+  document.getElementById('distChips').innerHTML = distances.map(d =>
+    `<button class="chip" data-dist="${d}" aria-pressed="${state.distance===d}">${d}</button>`
+  ).join('');
+
+  document.querySelectorAll('#yearChips .chip').forEach(btn => {
+    btn.addEventListener('click', () => { state.year = btn.dataset.year; renderChips(); applyFilters(); });
+  });
+  document.querySelectorAll('#distChips .chip').forEach(btn => {
+    btn.addEventListener('click', () => { state.distance = btn.dataset.dist; renderChips(); applyFilters(); });
+  });
+}
+
+function renderSortGroup(){
+  const modes = [['recent','Recent'], ['fastest','Fastest'], ['oldest','Oldest']];
+  document.getElementById('sortGroup').innerHTML = modes.map(([mode,label]) => {
+    const active = state.sort.mode === mode;
+    const arrow = active ? (state.sort.dir === 'asc' ? '↑' : '↓') : '';
+    return `<button class="sort-btn" data-mode="${mode}" aria-pressed="${active}">${label}${arrow ? ` <span class="dir">${arrow}</span>` : ''}</button>`;
+  }).join('');
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      if(state.sort.mode === mode){
+        state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.sort.mode = mode;
+        state.sort.dir = DEFAULT_DIR[mode];
+      }
+      renderSortGroup();
+      applyFilters();
+    });
+  });
+}
+
+function sortRaces(list){
+  const { mode, dir } = state.sort;
+  const arr = list.slice();
+  if(mode === 'fastest'){
+    arr.sort((a,b) => {
+      const at = parseTimeToSeconds(a.time), bt = parseTimeToSeconds(b.time);
+      if(at===null && bt===null) return 0;
+      if(at===null) return 1;
+      if(bt===null) return -1;
+      return dir === 'asc' ? at-bt : bt-at;
+    });
+  } else {
+    arr.sort((a,b) => {
+      const ad = new Date(a.date), bd = new Date(b.date);
+      return dir === 'asc' ? ad-bd : bd-ad;
+    });
+  }
+  return arr;
+}
+
+const SOURCE_LABEL = {
+  STS: 'Times verified by STS (Sports Timing Solutions)',
+  Athlinks: 'Result recorded on Athlinks',
+  personal: 'Self-reported — chip time not yet traced (check mySamay with bib #17737)',
+  Strava: 'Time from his Strava activity — official chip time not yet traced'
+};
+const DISTANCE_BLURB = {
+  '5K': 'A 5K tune-up effort',
+  '10K': 'A 10K road race — his most-raced distance, season after season',
+  'Half': 'A half marathon — the longest distance raced to date',
+  'Marathon': 'A full marathon'
+};
+
+function describeRace(race){
+  let sentence = `${DISTANCE_BLURB[race.distance] || `A ${race.distance} race`}, run on a ${race.course_type} course.`;
+  if(race.is_pb) sentence += ' This one stands as the current personal best for the distance.';
+  return sentence;
+}
+
+function renderRaceDetail(race){
+  const desc = describeRace(race);
+  let rows = `<dt>Date</dt><dd>${formatDate(race.date)}</dd>`;
+  if(race.placement_overall){
+    rows += `<dt>Placement</dt><dd>${race.placement_overall.toLocaleString()} of ${race.placement_of.toLocaleString()} finishers</dd>`;
+  }
+  rows += `<dt>Source</dt><dd>${SOURCE_LABEL[race.source] || race.source}</dd>`;
+  if(race.bib){
+    rows += `<dt>Bib</dt><dd>#${race.bib}</dd>`;
+  }
+  return `<div class="race-detail-inner"><p class="desc">${desc}</p><dl>${rows}</dl></div>`;
+}
+
+function renderRaceList(){
+  let list = DATA.races.slice();
+  if(state.year !== 'All') list = list.filter(r => r.date.startsWith(state.year));
+  if(state.distance !== 'All') list = list.filter(r => r.distance === state.distance);
+  list = sortRaces(list);
+
+  const el = document.getElementById('raceList');
+  if(!list.length){
+    el.innerHTML = `<li style="padding:24px 0;color:var(--ink-soft);">No races match these filters.</li>`;
+    return;
+  }
+
+  el.innerHTML = list.map(race => {
+    const id = raceId(race);
+    const expanded = state.expandedId === id;
+    const timeDisplay = race.time ? race.time : '<span class="na">—</span>';
+    const pbFlag = race.is_pb ? '<span class="pb-flag">PB</span>'
+      : !race.time ? '<span class="pending-flag">photo only · results pending</span>' : '';
+    return `
+      <li class="race-item fade-in" data-id="${id}" data-expanded="${expanded}">
+        <button class="race-row" aria-expanded="${expanded}" aria-controls="detail-${id}" data-id="${id}">
+          <span class="date">${formatDate(race.date)}</span>
+          <span class="name">${escapeHtml(race.name)}${pbFlag}</span>
+          <span class="dist-badge">${race.distance}</span>
+          <span class="time ${race.time ? '' : 'na'}">${timeDisplay}</span>
+          <svg class="chev icon" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <div class="race-detail" id="detail-${id}">
+          ${renderRaceDetail(race)}
+        </div>
+      </li>`;
+  }).join('');
+
+  document.querySelectorAll('.race-row').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      state.expandedId = state.expandedId === id ? null : id;
+      renderRaceList();
+      initFadeIn();
+    });
+  });
+
+  initFadeIn();
+}
+
+function applyFilters(){
+  renderRaceList();
+}
+
+/* ---------------- Highlights ---------------- */
+function renderHighlights(){
+  document.getElementById('highlightList').innerHTML = DATA.highlights.map(h => `
+    <li class="highlight-item fade-in">
+      <span class="when">${h.when}</span>
+      <span>
+        <span class="label">${h.label}</span>
+        <span class="race-sub">${h.race}</span>
+      </span>
+      <span class="time">${h.time}</span>
+    </li>
+  `).join('');
+}
+renderHighlights();
+
+/* ---------------- Training for ---------------- */
+function renderTrainingFor(){
+  const t = DATA.currently_training_for;
+  document.getElementById('trainingRaceName').textContent = t.race_name;
+  document.getElementById('trainingContext').textContent = t.context;
+  document.getElementById('trainingTarget').textContent = t.target_time;
+  if(t.focus_quote){
+    document.getElementById('focusQuote').textContent = `“${t.focus_quote}” — season focus, from Strava`;
+  }
+}
+renderTrainingFor();
+
+/* ---------------- Fade-in on scroll ---------------- */
+let fadeObserver;
+function initFadeIn(){
+  if(!fadeObserver){
+    fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+  }
+  document.querySelectorAll('.fade-in:not(.visible)').forEach(el => fadeObserver.observe(el));
+}
+
+/* ---------------- Init ---------------- */
+renderChips();
+renderSortGroup();
+renderRaceList();
+initFadeIn();
+</script>
+</body>
+</html>
