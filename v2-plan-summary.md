@@ -1,6 +1,36 @@
-# v2 Plan — Summary
+# v2 Plan — Summary (revised after the audit, 2026-07-07)
 
-> Compiled 2026-07-07, after v1 ships. v1 = the page live on GitHub Pages. v2 = what we build next, gated on signal.
+> v1 = the page live on GitHub Pages. v2 = what we build next, gated on signal.
+> **Revised 2026-07-07 after the audit** — Tier 0 added, Tier 1 resequenced, Layer B thresholds tightened.
+
+---
+
+## What the audit fixed
+
+I claimed "CSV + build.js pipeline (15 sec per new race)" was already shipped. **It wasn't — the pipeline was never built anywhere.** The real workflow is hand-editing the `DATA` JSON in `index.html:533`, refreshed by pulling from the Strava MCP. **The plan is now corrected: building the pipeline is the prerequisite for everything else in Layer A.**
+
+---
+
+## Tier 0 — Build the data pipeline (BLOCKING)
+
+Before any Tier 1 feature, this exists. Real workflow today:
+- Pull latest from Strava MCP
+- Hand-edit `DATA` JSON in `index.html:533`
+- Find/replace, save, push
+
+That's ~3-5 minutes per race update, not 15 seconds. And it's error-prone (one missing comma breaks the page).
+
+| Step | Effort | What |
+|---|---|---|
+| 0.1 | 30 min | Create `races.csv` with the 8 existing races (one row each) |
+| 0.2 | 2-3 hrs | Write `build.js` — Node script, reads CSV, writes `data.js` |
+| 0.3 | 30 min | Update `index.html` to load `data.js` instead of inline JSON (one `<script src>` swap) |
+| 0.4 | 30 min | Add a `node build.js` step to `.github/workflows/static.yml` before the "Upload artifact" step (this repo deploys via GitHub Actions → GitHub Pages, not Vercel) |
+| 0.5 | 30 min | Migrate the 8 existing races into the CSV (validate output matches current page) |
+| 0.6 | 1 hr | Add race photos to `photos/{date}-{slug}.jpg` (auto-detected by build) |
+| **Total** | **~6-7 hrs** | Pipeline that makes everything below possible |
+
+**After Tier 0:** adding a race = open CSV → add 1 row → `git push` → live. ~20 seconds.
 
 ---
 
@@ -11,14 +41,12 @@
 What's shipped:
 - Single-file HTML, vanilla JS, no backend
 - Real photos (hero race shot + Himalayan trek)
-- 8 races across 4 years (Athlinks + STS + personal)
+- 8 races across 4 years (Athlinks + STS + personal + Strava PRs)
 - PB ladder with both race + Strava training PBs
 - Career stats (325 runs, 1,128.7 km, 155h 55m)
 - Dynamic features: year filter, distance filter, sort, race expand
-- Currently training for: first full marathon, sub-3:30
-- CSV + build.js data pipeline (15 sec per new race)
-- Deployed free on GitHub Pages
-- Showcase post drafted, ready to ship
+- Currently training for: first full marathon, sub-3:30 (no target date yet)
+- Hand-embedded `DATA` JSON in `index.html:533` (the bottleneck)
 
 **What's working** → the page renders, the data is real, the photo + trek combo is unique, the share quote holds up.
 
@@ -26,84 +54,74 @@ What's shipped:
 
 ---
 
-## v2 has two layers
-
-### Layer A — Page v2 (single-user, more features)
-For Karthikeyan's own portfolio. Adds capabilities on top of the v1 page.
-
-### Layer B — Product v2 (multi-tenant)
-The community build we specced in `runners-portfolio-product-brief.md`. Triggered by signal, not schedule.
-
----
-
 ## Layer A — Page v2 (single-user, build when you feel like it)
 
-These are the 10 features that earn their place in v2, in priority order:
+### Tier 0 — Prerequisite (do this first, before Tier 1)
+- **CSV + build.js pipeline** — see above, ~6-7 hours, blocks everything else
 
-### Tier 1 — ship in the next 1-2 months
-| # | Feature | Why | Effort |
-|---|---|---|---|
-| 1 | **Year-in-review auto-card** (Dec 1) | Auto-generated "your 2026 in races" shareable image. Highest social value, lowest build cost | 4-6 hrs |
-| 2 | **Splits per race** (when known) | When you add a Strava import, splits come free. Big emotional weight for the half + marathon rows | 2-3 hrs |
-| 3 | **Goal-race countdown card** | "X days to first full marathon" — the empty Marathon row gets a date when you pick the race | 1-2 hrs |
-| 4 | **Race-tag system** | Mark races as `tough`, `negative-split`, `weather-war`, `PR-streak` — adds color to the history | 3-4 hrs |
-| 5 | **Race-photo gallery** | Multiple photos per race, not just one. From the camera roll dump | 2-3 hrs |
+### Tier 1 — Ship in the next 1-2 months (in actual dependency order)
+| # | Feature | Depends on | Why | Effort |
+|---|---|---|---|---|
+| 1 | **Goal-race countdown** (`currently_training_for` target date + day-diff calc) | nothing | The Marathon row is the most-photographed gap. Adding a date + "X days" line plugs it cleanly | 1-2 hrs |
+| 2 | **Race photo gallery** (per race, not just one) | Tier 0 | Multiple photos per race, not just hero. From `photos/{date}-{slug}.jpg` | 2-3 hrs |
+| 3 | **Race-tag system** (tough, negative-split, PR-streak) | Tier 0 | Manual CSV column. Adds color to the history | 3-4 hrs |
+| 4 | **Year-in-review auto-card** (Dec 1) | Tier 0 | Auto-generated "your 2026 in races" shareable image. Highest social value, lowest build cost | 4-6 hrs |
+| 5 | **Print résumé** (dedicated @media print layout) | nothing | The current @media print just hides sections. A proper resume layout for the sponsorship pitch PDF | 1-2 hrs |
 
-### Tier 2 — ship when you have 30+ races
-| # | Feature | Why | Effort |
-|---|---|---|---|
-| 6 | **Strava OAuth** (auto-pull all-time bests, runs) | Replaces manual training PB entry. Saves you 5 min/month of editing | 1-2 days |
-| 7 | **Search + advanced filters** | By name, time range, placement % | 4-6 hrs |
-| 8 | **"Compare with me" widget** | Visitors enter their 10K time → see how they stack up vs your PBs | 1 day |
-| 9 | **Personalized "currently training" sub-3:30 countdown** | Same as #3 but for any goal, with weekly target pace | 4-6 hrs |
-| 10 | **Print-friendly single-page resume** | Already specced in v1 but not implemented. For the sponsorship pitch PDF | 1-2 hrs |
+### Tier 2 — Ship when you have 30+ races
+| # | Feature | Depends on | Why | Effort |
+|---|---|---|---|---|
+| 6 | **Strava OAuth** (auto-pull all-time bests + races) | Tier 0 | Replaces manual training PB entry + saves splits for free | 1-2 days |
+| 7 | **Splits per race** | #6 (Strava) | When Strava import lands, splits come free. Not before. **Was incorrectly listed as Tier 1 in the previous plan** | 2-3 hrs (post-Strava) |
+| 8 | **Search + advanced filters** (by name, time range, placement %) | Tier 0 | By name, time range, placement % | 4-6 hrs |
+| 9 | **"Compare with me" widget** | Tier 0 | Visitors enter their 10K time → see how they stack up vs your PBs | 1 day |
+| 10 | **Personalized training calendar** | Tier 0 | Weekly target pace + countdown for any goal race, not just first marathon | 4-6 hrs |
 
 ### What v2 page deliberately skips
 - ❌ Comments / reactions
 - ❌ Live data feed
-- ❌ Anything that requires a backend
+- ❌ Anything that requires a backend (until Phase 2)
 - ❌ Account system
 - ❌ Multi-page (separate URL per race)
+- ❌ Splits before Strava OAuth (was wrongly in Tier 1)
 
 ---
 
 ## Layer B — Product v2 (multi-tenant, gated on signal)
 
-This is the community build. Don't start until the showcase post produces a real demand signal.
-
-### Trigger conditions (any of these unlocks Layer B)
+### Trigger conditions (revised, no traffic vanity)
 
 | Signal | When it counts |
 |---|---|
-| ≥3 distinct runners DM you "how do I get one?" | within 14 days of showcase post |
-| A running club admin reaches out for a club-wide page | any time |
-| A brand DMs about sponsorship or partnership | any time |
-| ≥100 unique visitors to your GitHub Pages URL | within 30 days |
+| **≥3 distinct runners DM you "how do I get one?"** | within 14 days of showcase post — **real trigger** |
+| **A running club admin reaches out for a club-wide page** | any time — **real trigger** |
+| **A brand DMs about sponsorship or partnership** | any time — **real trigger** |
+| ~~≥100 unique visitors~~ | ~~don't count on its own — pair with intent signal~~ |
 
 If 0 signals after 30 days: keep iterating on the post + the page, don't start the multi-tenant build.
 
 ### The Phase 1 (hand-curated batch) — quick to do, validates the community
 
-**Before** building the SaaS, manually build 5-10 portfolios for runners who ask. Use the same `me.json` + `races.csv` + `index.html` template. Each takes ~30 min of your time.
+**Before** building the SaaS, manually build 5-10 portfolios for runners who ask. Use the same `me.json` + `races.csv` + `index.html` template (after Tier 0 is built). Each takes ~30 min of your time.
 
 **Why this matters:**
 - You learn what data the 4 cohorts need (and where Athlinks / STS fails for them)
 - You get real user stories for Phase 2
 - You build the user base before building the product
-- You validate the willingness to pay / share / be featured
+- You validate the willingness to share / be featured
 
 ### Phase 2 (the SaaS build) — only after 10+ are sharing
 
 **Tech stack (recommended):**
-- **Frontend**: Next.js (app router, React Server Components for SEO) — gives you the React ergonomics you wanted, with SSR for the public profile pages
+- **Frontend**: Next.js (app router, React Server Components for SEO)
 - **Database**: PostgreSQL (via Supabase or Neon, free tier)
-- **Auth**: Auth.js with magic link, single OAuth provider (Strava to start)
+- **Auth**: Auth.js with magic link + Strava OAuth to start
 - **Hosting**: Vercel (free tier for hobby, scales cleanly)
 - **Storage**: Vercel Blob for race photos
-- **Data imports**: Athlinks CSV paste (v1), STS profile paste (v1.5), Strava OAuth (v2), UltraSignup + ITRA + Parkrun (v3)
+- **Data imports**: Athlinks CSV paste, STS profile paste, Strava OAuth
 - **Cost**: $0-25/mo for the first 100 users
 
-**Build time**: 2-3 weeks of focused work, with the v1 + v1.1 + Phase 1 work as the foundation.
+**Build time**: 2-3 weeks of focused work.
 
 **Features in v2 product:**
 1. Auth (magic link)
@@ -125,16 +143,27 @@ If 0 signals after 30 days: keep iterating on the post + the page, don't start t
 
 ---
 
-## The actual decision tree (so we know when to do what)
+## The actual decision tree
 
 ```
 Week 1-4 post-launch:
   └─ Ship showcase post
   └─ Track DMs
-  └─ Run races, add to CSV
+  └─ Run races, add to JSON (manually) — 3-5 min per race
   └─ Iterate page if needed (rare)
 
-If 0 signals at week 4:
+Tier 0 (within 2 weeks):
+  └─ Build the CSV + build.js pipeline (~6-7 hrs)
+  └─ New race add drops to ~20 sec
+
+Tier 1 (next 1-2 months after Tier 0):
+  └─ Goal countdown (no deps, do first)
+  └─ Photo gallery
+  └─ Race tags
+  └─ Year-in-review
+  └─ Print résumé
+
+If 0 Layer B signals at week 4:
   └─ Re-write the post, try different channels
   └─ Don't scale
 
@@ -151,7 +180,6 @@ If 10+ Phase 1 portfolios are sharing and 1+ wants multi-user:
 If a brand DMs:
   └─ Take the conversation seriously (this is real revenue)
   └─ Iterate the page to optimize for the brand pitch
-  └─ Note: brands pay $1-10k/year for an athlete's content deal at this tier
 ```
 
 ---
@@ -160,37 +188,37 @@ If a brand DMs:
 
 | Phase | When | What | Effort |
 |---|---|---|---|
-| **Page v2 Tier 1** | next 1-2 months | year-in-review, splits, countdown, tags, photos | 1-2 days total |
-| **Page v2 Tier 2** | when you have 30+ races | Strava OAuth, advanced filters, compare widget | 1 week |
+| **Tier 0** | this week, before anything else | CSV + build.js + photo auto-detect | 6-7 hrs |
+| **Tier 1** | next 1-2 months after Tier 0 | countdown, photos, tags, year-review, print résumé | 1-2 days total |
+| **Tier 2** | when you have 30+ races | Strava OAuth, advanced filters, compare widget | 1 week |
 | **Phase 1 (hand batch)** | when 3+ DMs | 10 manual portfolios | 10 hours |
 | **Phase 2 (SaaS)** | when 10+ sharing | Next.js + Postgres + Auth | 2-3 weeks |
 | **v3 (B2B)** | when clubs/teams ask | club mode, coach mode, paid tiers | 1+ month |
 
 ---
 
-## The 1 thing I want you to do right now
+## The single most important next step
 
-**Don't build anything yet.** v1 is live. v1 is good. The page is doing its job.
+**Don't build v2 features yet.** Build Tier 0 first.
 
-**The single most important thing you can do in the next 7 days:**
+**The order that matters:**
 
 ```
-1. Run a race
-2. Snap the photo
-3. Add 1 row to races.csv
-4. Run node build.js
-5. git push
-6. Watch the page update
+1. Tier 0 (CSV + build.js pipeline)        6-7 hrs
+2. Run a race, add to CSV, push             20 sec
+3. Tier 1 #1: Goal-race countdown          1-2 hrs
+4. Run another race, add to CSV, push       20 sec
+5. Show the post, watch the DMs
+6. Tier 1 features as needed
+7. Layer B when signal arrives
 ```
 
-Live, repeated, that's the muscle. The data pipeline is the only thing that needs to actually work in production. If adding a new race takes 30 seconds, you'll do it every time. If it takes 5 minutes, you won't.
-
-**v1 is shipped. v2 is gated on signal. The discipline is to not over-build until the world tells you what to build.** That discipline is what makes the difference between an indie product that grows and one that dies of feature creep.
+If you skip Tier 0, every Tier 1 feature is more painful than it needs to be. The pipeline is the product. Build it once. Use it forever.
 
 ---
 
-## What this is in one sentence
+## What v2 is in one sentence
 
-**v2 is a function of v1's signal: ship v1, run races, add to CSV, watch the DMs come in, build only when the world tells you what to build.**
+**v2 starts with Tier 0 (the data pipeline) — not the features — and stays gated on real signal for Layer B.**
 
-End of plan. Now go run a race. 🏃
+End of corrected plan. The pipeline first. The features second. Signal-gated scaling. Now go run a race. 🏃
